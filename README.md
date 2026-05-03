@@ -117,9 +117,9 @@ Check your install:
 
 ## Why
 
-Tidy came from two places: my computer was a mess, and Andrej Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) crystallized the pattern. His gist describes the wiki as a persistent, compounding artifact maintained by an LLM instead of knowledge being rediscovered from scratch every session.
-
-Tidy applies that idea to filing: the files are the mess, the wiki is the memory, and the agent does the bookkeeping. Thank you, Andrej.
+Tidy came from two places: my computer was a mess, and Andrej Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) crystallized the pattern. His gist describes the wiki as a persistent, compounding artifact maintained by an LLM instead of knowledge being rediscovered from scratch every session. 
+What Tidy adds is small: the wiki holds executable filing rules instead of synthesized knowledge, and grows by codifying a pattern the first time no existing rule fits. The runtime is replaceable; the rulebook is yours.
+Thank you, Andrej.
 
 ## Docs
 
