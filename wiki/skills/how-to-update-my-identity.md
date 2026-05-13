@@ -47,7 +47,25 @@ Look at what they already have that would be the surface for this kind of work:
 
 If something already does this work, propose using THAT instead of expanding Tidy. Tidy growing into a domain that's already someone else's job is bad architecture.
 
-### 3. Propose the new domain
+### 3. Pick a domain name — refuse content-shaped names
+
+Decide what to call the new domain. The name MUST describe the *shape* of the work, not the *content*. **This is a hard rule, not guidance.** Apply it BEFORE drafting the proposal.
+
+See **Naming domains** below for the full rule and the refuse-and-counter-propose protocol. If the obvious name would be a business, customer, person, product, or other specific instance, don't proceed — pick a shape-shaped name first, then move on.
+
+If the user proposes a content-shaped name in their request, do NOT honor it silently. Counter-propose the shape-shaped alternative and ask. Detail in **Naming domains**.
+
+### 4. Check for existing type-level skills before drafting a new one
+
+Skills live flat across all domains — they're identified by *type* (e.g. `email`, `book`, `invoice`), not by domain. The same skill file can serve multiple domains via sub-cases. So before proposing a brand-new first skill file:
+
+- Scan `~/.tidy/skills/*.md` for an existing type-level skill that covers the *shape* of the work this new domain handles.
+- If one exists → don't create a new skill file. Instead, propose adding a new sub-case to the existing skill, labeled with the new domain context. See `how-to-update-the-wiki.md` for the sub-case format.
+- If no existing skill covers it → propose a new type-level skill file as usual.
+
+The new domain is the new artifact either way. Whether it points at a brand-new skill or extends an existing one depends on what's already in `skills/`.
+
+### 5. Propose the new domain
 
 Show the user a full proposal. Lead with the recognition. End with a yes/no.
 
@@ -72,6 +90,8 @@ Show the user a full proposal. Lead with the recognition. End with a yes/no.
 > <honest limits — what tools or context are missing>
 > ```
 >
+> *Then either:*
+>
 > And here's the first skill for this domain at `~/.tidy/skills/<first-skill>.md`:
 >
 > ```md
@@ -85,20 +105,28 @@ Show the user a full proposal. Lead with the recognition. End with a yes/no.
 > 2. <step>
 >
 > ## Sub-cases
-> (empty to start)
+> - in <domain-name>: <action for this domain>
 > ```
 >
-> OK to add the new domain and write this first skill?
+> *Or, if Step 4 found an existing type-level skill:*
+>
+> The first skill is `~/.tidy/skills/<existing-skill>.md` — it already covers this shape of work, so I'd extend it with a new sub-case under `## Sub-cases` rather than create a new file:
+>
+> ```md
+> - in <new-domain-name>: <action for this domain>
+> ```
+>
+> OK to add the new domain and (write the new skill / extend the existing one)?
 
-### 4. On approval
+### 6. On approval
 
 - Write the new domain file to `~/.tidy/domains/<name>.md`
-- Write the first skill to `~/.tidy/skills/<first-skill>.md`
-- Update `~/.tidy/index.md` to list the new domain under `## Domains` and the new skill under that domain's section
+- Write or update the skill (`~/.tidy/skills/<name>.md`)
+- Update `~/.tidy/index.md` to list the new domain under `## Domains` and the skill under that domain's section
 - Log the identity update in this month's log file with skill used = `how-to-update-my-identity`
-- Then execute the work for this batch using the newly written skill (don't re-ask — the user already approved)
+- Then execute the work for this batch using the newly written or extended skill (don't re-ask — the user already approved)
 
-### 5. On rejection
+### 7. On rejection
 
 - Don't write anything
 - Log the encounter (skill used = `how-to-update-my-identity`, rule learned = `—`, notes = "user declined new domain")
@@ -106,10 +134,22 @@ Show the user a full proposal. Lead with the recognition. End with a yes/no.
 
 ## Naming domains
 
-Lowercase kebab-case. One-word or short-phrase, describes the *shape* of the work, not the *content*.
+Lowercase kebab-case. The name MUST describe the **shape** of the work, not the **content**. This is a hard rule, not guidance.
 
-- Good: `filing`, `inbox-triage`, `customer-research`, `calendar`, `copy-drafting`, `decision-logging`
-- Bad: `email` (vague), `work` (too broad), `personal` (too broad), `mark-stuff` (named after who, not what), `raiffeisen` (specific instance, not shape)
+- ✅ `inbox-triage`, `customer-research`, `copy-drafting`, `decision-logging`, `calendar`, `filing`
+- ❌ `node` (content: a specific business), `raiffeisen` (content: a specific customer), `mark-stuff` (named after a person), `email` (vague — reading? composing? which inbox?), `work` (too broad), `personal` (too broad)
+
+### Refusing content-shaped names
+
+If the user proposes a content-shaped name (a business, customer, person, product, or other specific instance), do NOT accept it. Counter-propose the shape-shaped alternative and ask:
+
+> The name `<their-name>` describes a specific <business / customer / person / instance> — that's *content*. Domains in Tidy are named by *shape* (kind of work), because the same shape applies across many instances. A `<their-name>` domain would force a new domain every time you got another <business / customer / etc.>, and skills would duplicate.
+>
+> The shape of work you're describing looks like **`<shape-name>`** — the same kind of work whether the <instance> is X, Y, or Z. The specific <instance> becomes a **sub-case** inside the skill, not its own domain.
+>
+> I'd propose `<shape-name>` instead. The first skill (`<skill>.md`) would include `<their-name-instance>` as one sub-case, with others added as you teach me. OK?
+
+If after this counter-proposal the user gives a concrete reason why a content-shaped name is right HERE (not just "I want it"), then proceed with the content-shaped name — but log a warning in the batch log noting the naming-rule override and the reason given. The default answer is refuse; override is exceptional.
 
 ## The decision flow
 
@@ -117,4 +157,6 @@ Lowercase kebab-case. One-word or short-phrase, describes the *shape* of the wor
 2. Is the work genuinely a new *kind* of task? → yes → continue.
 3. Does it have a clear shape you can describe in one playbook? → no → ask the user what they mean, don't propose.
 4. Has the user asked for this kind of thing more than once, or are they being unambiguous now? → no → wait, don't expand on a single ambiguous request.
-5. Yes to all of the above → propose the new domain per Step 3.
+5. Does the proposed name pass the shape-not-content test? → no → counter-propose a shape-shaped name and re-ask.
+6. Does an existing type-level skill cover the shape of this work? → yes → propose adding a sub-case to that skill rather than writing a new one.
+7. Yes to all of the above → propose the new domain per Step 5.

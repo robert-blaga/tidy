@@ -29,6 +29,21 @@ When a batch fits an existing skill but adds a sub-case (e.g. `pdf.md` knew abou
 
 **Append** the sub-case as a bullet under `## Sub-cases`. Don't rewrite working content. Existing sub-cases keep working.
 
+### Skills are cross-domain
+
+A skill is a *type* (e.g. `email`, `book`, `invoice`). The same skill file can be used by multiple domains — for example, an `email.md` skill applies in `inbox-triage`, `customer-success`, or any other domain where email-shaped work appears. The domain provides the *context* (rules, surface, tools); the skill provides the *type* (what kind of thing this is and how to handle it).
+
+When a skill needs to behave differently across domains, label the sub-case with the domain so the branching is explicit:
+
+```md
+## Sub-cases
+- in inbox-triage (work email): delegate read to the email-reading tool you have access to, flag urgent senders, archive newsletters
+- in inbox-triage (personal): surface only personal correspondence, skip newsletters
+- in customer-success (post-meeting recap): draft a follow-up email per the meeting notes
+```
+
+This is also how `how-to-update-my-identity.md` extends existing skills when proposing a new domain — it adds a sub-case under the existing skill labeled with the new domain, rather than creating a duplicate file.
+
 ## How to ask
 
 Show the user the full markdown body. Lead with what you learned from this batch.
