@@ -2,23 +2,14 @@
 
 Everything Tidy has learned about how you work lives here.
 
-## Domains
-
-The kinds of work Tidy currently does. Each domain has its own playbook in `domains/`.
-
-- [`domains/filing.md`](domains/filing.md) — organize files on disk
-
-(More domains appear here as you teach them. See `skills/how-to-update-my-identity.md` for how new domains get added.)
-
 ## Meta skills
 
-The five playbooks Tidy uses on every batch. Read them anytime — these are the rules of the game.
+The four playbooks Tidy uses on every batch. Read them anytime — these are the rules of the game.
 
-- [`skills/when-nothing-fits.md`](skills/when-nothing-fits.md) — what to do when no rule matches, including how to escalate when the work is outside all current domains
+- [`skills/when-nothing-fits.md`](skills/when-nothing-fits.md) — what to do when no rule matches
 - [`skills/how-to-ask.md`](skills/how-to-ask.md) — how Tidy talks to you
 - [`skills/how-to-log.md`](skills/how-to-log.md) — how every batch is recorded
-- [`skills/how-to-update-the-wiki.md`](skills/how-to-update-the-wiki.md) — when Tidy proposes a new skill within an existing domain
-- [`skills/how-to-update-my-identity.md`](skills/how-to-update-my-identity.md) — when Tidy proposes a whole new domain
+- [`skills/how-to-update-the-wiki.md`](skills/how-to-update-the-wiki.md) — when Tidy proposes a new rule
 
 ## Skills you've taught Tidy
 
