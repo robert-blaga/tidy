@@ -26,7 +26,6 @@ Update refreshes only repo-owned files:
   ~/.claude/skills/tidy/SKILL.md
   ~/.codex/prompts/tidy.md
   ~/.tidy/AGENTS.md
-  ~/.tidy/skills/how-to-ask.md
   ~/.tidy/skills/how-to-log.md
   ~/.tidy/skills/how-to-update-the-wiki.md
   ~/.tidy/skills/when-nothing-fits.md
@@ -36,9 +35,10 @@ Update never touches:
   your learned ~/.tidy/skills/*.md
   ~/.tidy/log/**
 
-Update also removes v0.2.x artifacts on first run after upgrading:
-  ~/.tidy/domains/
-  ~/.tidy/skills/how-to-update-my-identity.md
+Update also removes retired meta-skills on first run after upgrading:
+  ~/.tidy/domains/                          (v0.2.x)
+  ~/.tidy/skills/how-to-update-my-identity.md  (v0.2.x)
+  ~/.tidy/skills/how-to-ask.md              (v0.3.1)
 EOF
 }
 
@@ -108,10 +108,9 @@ refresh() {
     echo "  ↻ $dst"
 }
 
-cleanup_v02x_artifacts() {
-    # v0.2.0 introduced a domains/ folder and a how-to-update-my-identity.md
-    # meta-skill. v0.3.0 removed both. Clean them up on --update so an
-    # upgrading wiki doesn't carry orphaned files.
+cleanup_retired_artifacts() {
+    # Retired meta-skills and folders from previous versions. Cleaned up on
+    # --update so an upgrading wiki doesn't carry orphaned files.
     local cleaned=0
 
     if [ -d "$HOME/.tidy/domains" ]; then
@@ -128,8 +127,15 @@ cleanup_v02x_artifacts() {
         cleaned=1
     fi
 
+    if [ -f "$HOME/.tidy/skills/how-to-ask.md" ]; then
+        local backup="$HOME/.tidy/skills/how-to-ask.md.bak-${timestamp}"
+        mv "$HOME/.tidy/skills/how-to-ask.md" "$backup"
+        echo "  ! removed v0.3.1 how-to-ask meta-skill (backed up to ${backup})"
+        cleaned=1
+    fi
+
     if [ "$cleaned" -eq 0 ]; then
-        echo "  · no v0.2.x artifacts to clean up"
+        echo "  · nothing to clean up"
     fi
 }
 
@@ -196,13 +202,12 @@ install_mode() {
 update_mode() {
     mkdir -p "$HOME/.tidy/skills"
 
-    echo "Cleanup (v0.2.x artifacts)"
-    cleanup_v02x_artifacts
+    echo "Cleanup (retired artifacts)"
+    cleanup_retired_artifacts
 
     echo
     echo "Wiki constitution"
     refresh wiki/AGENTS.md "$HOME/.tidy/AGENTS.md"
-    refresh wiki/skills/how-to-ask.md "$HOME/.tidy/skills/how-to-ask.md"
     refresh wiki/skills/how-to-log.md "$HOME/.tidy/skills/how-to-log.md"
     refresh wiki/skills/how-to-update-the-wiki.md "$HOME/.tidy/skills/how-to-update-the-wiki.md"
     refresh wiki/skills/when-nothing-fits.md "$HOME/.tidy/skills/when-nothing-fits.md"
@@ -249,7 +254,6 @@ doctor_mode() {
     echo "Wiki"
     check_path "$HOME/.tidy/AGENTS.md" "~/.tidy/AGENTS.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/index.md" "~/.tidy/index.md" || problems=$((problems + 1))
-    check_path "$HOME/.tidy/skills/how-to-ask.md" "~/.tidy/skills/how-to-ask.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/how-to-log.md" "~/.tidy/skills/how-to-log.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/how-to-update-the-wiki.md" "~/.tidy/skills/how-to-update-the-wiki.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/when-nothing-fits.md" "~/.tidy/skills/when-nothing-fits.md" || problems=$((problems + 1))
@@ -260,6 +264,9 @@ doctor_mode() {
     fi
     if [ -f "$HOME/.tidy/skills/how-to-update-my-identity.md" ]; then
         echo "  ! ~/.tidy/skills/how-to-update-my-identity.md exists (v0.2.x artifact — run ./install.sh --update to clean up)"
+    fi
+    if [ -f "$HOME/.tidy/skills/how-to-ask.md" ]; then
+        echo "  ! ~/.tidy/skills/how-to-ask.md exists (v0.3.1 artifact — run ./install.sh --update to clean up)"
     fi
 
     echo

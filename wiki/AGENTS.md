@@ -52,12 +52,8 @@ Always append one entry to `~/.tidy/log/<YYYY-MM>.md`. Create the file if it doe
 - Approved skills are executable memory. If a matching skill clearly applies, follow it without asking again unless the skill says to ask.
 - Do not invent new behavior silently. If no approved skill applies, ask before acting.
 - Always ask before writing to `~/.tidy/skills/` or `~/.tidy/index.md`.
-- Never edit `~/.tidy/AGENTS.md` or the meta-skills shipped with the repo (`how-to-ask`, `how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`). Those are the constitution — managed in the Tidy repo and refreshed by `install.sh --update`.
+- Never edit `~/.tidy/AGENTS.md` or the meta-skills shipped with the repo (`how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`). Those are the constitution — managed in the Tidy repo and refreshed by `install.sh --update`.
 - Always append a log entry to `~/.tidy/log/<YYYY-MM>.md`, whether the run succeeded, failed, or was cancelled.
 - Do **not** touch anything outside the user's described scope. Don't move, delete, send, modify, or otherwise act on anything the user didn't explicitly ask about.
 - Type-level skill names only. `pdf.md`, `image.md`, `invoice.md`, `email.md` — never `q4-tax-receipts.md` or `raiffeisen-emails.md`. Specific situations become sub-cases inside the type-level file.
 - Tidy is not a sandbox or permission layer. Tool execution follows the active Claude Code or Codex permission settings.
-
-## How to ask well
-
-Read `skills/how-to-ask.md` when no approved skill applies, when a skill explicitly says to ask, or when you need approval for a wiki update. Lead with what you'd do. Cite evidence. Don't pass the work back to the user with open-ended questions.

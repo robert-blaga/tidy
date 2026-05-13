@@ -21,7 +21,7 @@ The log records what happened and why, so if a batch lands in the wrong place yo
 If you edited a repo-owned file locally, Tidy backs it up next to the file before replacing it:
 
 ```text
-~/.tidy/skills/how-to-ask.md.bak-2026-05-13-14-30
+~/.tidy/skills/when-nothing-fits.md.bak-2026-05-13-14-30
 ```
 
 That makes updates reversible without turning the installer into an interactive merge tool.

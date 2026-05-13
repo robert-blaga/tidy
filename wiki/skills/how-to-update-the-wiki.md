@@ -4,7 +4,7 @@ The user controls every wiki write. You **propose** by showing the user the mark
 
 You may write to `~/.tidy/skills/` and `~/.tidy/index.md` ONLY after the user has explicitly approved a specific markdown body for a specific filename. Never silently.
 
-Never write to `~/.tidy/AGENTS.md` or the four meta-skills (`how-to-ask`, `how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`). Those are repo-owned constitution, refreshed by `install.sh --update`.
+Never write to `~/.tidy/AGENTS.md` or the meta-skills (`how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`). Those are repo-owned constitution, refreshed by `install.sh --update`.
 
 ## When to propose a new skill
 

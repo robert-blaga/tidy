@@ -42,7 +42,7 @@ What "items" and "actions" mean depends on the input. For a folder of files, ite
 
 - **items**: 1 · IMG_1275.HEIC
 - **actions**:
-  - `~/Downloads/IMG_1275.HEIC` → `~/05 Personal/Photos/IMG_1275.HEIC`
+  - `~/Downloads/IMG_1275.HEIC` → `~/Pictures/IMG_1275.HEIC`
 - **skill used**: skills/image.md
 - **rule learned**: —
 ```

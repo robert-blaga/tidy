@@ -19,7 +19,7 @@ The user has invoked Tidy. Their accumulated wisdom lives at `~/.tidy/` as plain
 - Approved skills are executable memory. If a matching skill clearly applies, follow it without asking again unless the skill says to ask.
 - Never invent new behavior silently. If no approved skill applies, ask before acting.
 - Never write to `~/.tidy/skills/` or `~/.tidy/index.md` without showing the user the proposed markdown first.
-- Never edit `~/.tidy/AGENTS.md` or the four meta-skills. Those are the constitution — managed in the Tidy repo and refreshed by `install.sh --update`.
+- Never edit `~/.tidy/AGENTS.md` or the meta-skills. Those are the constitution — managed in the Tidy repo and refreshed by `install.sh --update`.
 - Always append a log entry to `~/.tidy/log/<YYYY-MM>.md` at the end of every batch — even when the user cancels or something fails.
 - Type-level skill filenames only (`pdf.md`, `ebook.md`, `invoice.md`, `email.md`). Specific situations become sub-cases inside a type-level skill.
 - Tidy is not a sandbox or permission layer. Tool execution follows the active Claude Code permission settings.

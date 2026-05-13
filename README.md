@@ -12,7 +12,7 @@ The novel idea is the wiki, not the runtime. The wiki is yours. The agent is the
 - A **Codex slash prompt** at `~/.codex/prompts/tidy.md`. Triggered by `/tidy`.
 - A **seed wiki** at `~/.tidy/`:
   - `AGENTS.md` — the constitution
-  - four meta-skills in `skills/` (`how-to-ask`, `how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`)
+  - three meta-skills in `skills/` (`how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`)
   - `index.md` — your catalog of learned skills (starts empty)
   - `log/` — every batch recorded
 
@@ -46,7 +46,7 @@ git pull
 - Claude Code skill
 - Codex prompt
 - `~/.tidy/AGENTS.md`
-- the four meta-skills in `~/.tidy/skills/`
+- the three meta-skills in `~/.tidy/skills/`
 
 It never touches:
 
@@ -147,9 +147,8 @@ OK to write this to ~/.tidy/skills/pdf.md and update ~/.tidy/index.md?
 ├── AGENTS.md            the constitution the agent reads on every invocation
 ├── index.md             catalog of skills you've approved
 ├── skills/
-│   ├── how-to-ask.md                ↘
-│   ├── how-to-log.md                 ↘  the four meta-skills, shipped at install
-│   ├── how-to-update-the-wiki.md     ↗
+│   ├── how-to-log.md                ↘
+│   ├── how-to-update-the-wiki.md     ↘  the three meta-skills, shipped at install
 │   ├── when-nothing-fits.md          ↗
 │   ├── ebook.md                     ↘
 │   ├── invoice.md                    ↘  skills you've taught Tidy
@@ -190,7 +189,7 @@ Thank you, Andrej.
 
 ## Status
 
-v0.3.1. Pre-alpha — expect the agent's behavior to surprise you sometimes; the playbook in `~/.tidy/AGENTS.md` and the meta skills in `~/.tidy/skills/` are the honest place to push back when it does.
+v0.3.2. Pre-alpha — expect the agent's behavior to surprise you sometimes; the playbook in `~/.tidy/AGENTS.md` and the meta skills in `~/.tidy/skills/` are the place to push back when it does.
 
 ## Uninstall
 
