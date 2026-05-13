@@ -190,7 +190,7 @@ Thank you, Andrej.
 
 ## Status
 
-v0.3.0. Pre-alpha — expect the agent's behavior to surprise you sometimes; the playbook in `~/.tidy/AGENTS.md` and the meta skills in `~/.tidy/skills/` are the honest place to push back when it does.
+v0.3.1. Pre-alpha — expect the agent's behavior to surprise you sometimes; the playbook in `~/.tidy/AGENTS.md` and the meta skills in `~/.tidy/skills/` are the honest place to push back when it does.
 
 ## Uninstall
 
