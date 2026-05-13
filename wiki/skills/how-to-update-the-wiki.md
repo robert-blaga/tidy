@@ -1,15 +1,19 @@
 # How to update the wiki
 
-The user controls every wiki write. You **propose** by showing the user the markdown you'd write; the user approves; **you** then write the file. Approved skills can drive future filing without re-asking, so wiki writes require explicit approval.
+The user controls every wiki write. You **propose** by showing the user the markdown you'd write; the user approves; **you** then write the file. Approved skills can drive future work without re-asking, so wiki writes require explicit approval.
 
 You may write to `~/.tidy/skills/` and `~/.tidy/index.md` ONLY after the user has explicitly approved a specific markdown body for a specific filename. Never silently.
+
+For new **domains** (not skills), see `how-to-update-my-identity.md`. This file is about adding skills within an existing domain.
+
+Never write to `~/.tidy/AGENTS.md`, the meta-skills (`how-to-ask`, `how-to-log`, `how-to-update-the-wiki`, `how-to-update-my-identity`, `when-nothing-fits`), or `~/.tidy/domains/filing.md`. Those are repo-owned constitution, refreshed by `install.sh --update`.
 
 ## When to propose a new skill
 
 At the end of a batch, propose a new skill if all of these are true:
 
 - you handled a pattern that's likely to recur, AND
-- no existing skill covers it (or the existing one covers it imprecisely), AND
+- no existing skill in the current domain covers it (or the existing one covers it imprecisely), AND
 - you have at least one concrete example of the pattern (the batch you just handled)
 
 Don't propose when:
@@ -17,6 +21,7 @@ Don't propose when:
 - an existing skill already handles this case → propose an **update** to that skill instead
 - the situation was so specific it won't repeat
 - you're unsure → wait for the second instance and learn from two examples
+- the work was outside the current domain entirely → that's an identity update, see `how-to-update-my-identity.md`
 
 ## When to update an existing skill
 
@@ -57,7 +62,7 @@ If the user replies with edits, redraft and ask again. If yes, write the file.
 # <skill title>
 
 ## When
-<one-line trigger — extension, content signal, or both>
+<one-line trigger — extension, content signal, input shape, or whatever makes this skill match>
 
 ## Do
 1. <step>
@@ -79,10 +84,11 @@ The specific case becomes a sub-case inside a type-level skill. Sibling skills w
 
 ## Updating the index
 
-When you add or update a skill, also update `~/.tidy/index.md` so the new skill appears under `## Skills you've taught Tidy`. Idempotent — if the entry already exists, leave it alone.
+When you add or update a skill, also update `~/.tidy/index.md` so the new skill appears under the right domain section. Idempotent — if the entry already exists, leave it alone.
 
 ## The decision flow
 
-1. Type-level skill exists for this batch's primary type? → propose updating it (new sub-case)
-2. Category skill exists (e.g. `image.md` covers `.jpg/.png/.heic`)? → propose updating it
-3. Neither? → propose a new type-level skill
+1. Are we adding a new **domain**? → no, that's `how-to-update-my-identity.md`. This file is only for skills within an existing domain.
+2. Type-level skill exists for this batch's primary type? → propose updating it (new sub-case)
+3. Category skill exists (e.g. `image.md` covers `.jpg/.png/.heic`)? → propose updating it
+4. None of those? → propose a new type-level skill in the current domain

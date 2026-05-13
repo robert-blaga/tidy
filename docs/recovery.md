@@ -15,6 +15,7 @@ The log records what moved and why, so if a batch lands in the wrong place you h
 `./install.sh --update` refreshes repo-owned files, but it never touches:
 
 - `~/.tidy/index.md`
+- your user-grown domains (anything in `~/.tidy/domains/` besides `filing.md`)
 - your own learned skills
 - `~/.tidy/log/**`
 

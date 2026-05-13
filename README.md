@@ -1,10 +1,10 @@
 # Tidy
 
-A shared filing memory for Claude Code and Codex.
+A shared memory for Claude Code and Codex. Tidy ships knowing how to file files; you teach it the rest.
 
 Agents don't always need smarter models. Sometimes they need better memory.
 
-Tidy is a Claude Code skill, a Codex slash prompt, and a local markdown wiki in `~/.tidy/`. Teach it once, and both agents can learn how you organize files.
+Tidy is a Claude Code skill, a Codex slash prompt, and a local markdown wiki at `~/.tidy/`. Teach it once, and both agents can do the work the way you'd do it. Out of the box, Tidy knows one **domain** — filing files. New skills accumulate within a domain. New domains expand what Tidy *is*, with your approval each step.
 
 ## Demo
 
@@ -37,6 +37,24 @@ ebooks by genre from the approved rule. OK to write it?
 
 After approval, Tidy wrote `skills/ebook.md` and updated `index.md`. The next ebook batch can be handled by reading that skill instead of rediscovering the pattern.
 
+## Beyond filing — teaching Tidy a new domain
+
+When you ask Tidy to do something that isn't filing, it doesn't pretend. It recognizes the work is outside what it knows and proposes a new **domain**:
+
+```text
+User:
+/tidy triage my inbox
+
+Tidy:
+You're asking me to triage your inbox. That's outside what I do today
+(I currently do: filing). If you want, I can learn this kind of work too.
+
+I'd add a new domain at ~/.tidy/domains/inbox-triage.md and a first skill at
+~/.tidy/skills/triage.md (markdown bodies shown below). OK to write them?
+```
+
+Approve, and from then on `/tidy triage my inbox` just works. The wiki grows; the agent never has to rediscover.
+
 ## Install
 
 ```bash
@@ -44,6 +62,8 @@ git clone https://github.com/robert-blaga/tidy
 cd tidy
 ./install.sh
 ```
+
+`install.sh` is idempotent — existing files in `~/.tidy/` are never overwritten, so re-running after you've taught Tidy real skills (or new domains) won't lose them.
 
 You need at least one of:
 
@@ -61,7 +81,7 @@ In Claude Code:
 In Codex:
 
 ```text
-/tidy ~/Downloads
+/tidy then tell me what to organize
 ```
 
 Or just describe the scope:
@@ -72,13 +92,14 @@ Or just describe the scope:
 
 ## How It Works
 
-1. The agent reads `~/.tidy/index.md`.
-2. It finds the approved skill that matches the files.
-3. It reads and follows that skill.
-4. It files the batch and logs what happened.
-5. If no approved skill fits, it uses `when-nothing-fits.md`, asks before inventing new filing behavior, then proposes a new or updated skill.
+1. The agent reads `~/.tidy/AGENTS.md` (the constitution) and `~/.tidy/index.md` (the catalog).
+2. It identifies the **domain** that matches what you asked for (e.g. filing).
+3. It reads `~/.tidy/domains/<name>.md` for that domain's playbook and any relevant `~/.tidy/skills/*.md`.
+4. If an approved skill matches, it follows the skill, acts, and logs.
+5. If nothing fits, it reads `when-nothing-fits.md` — which either investigates within the current domain, or (when the work is genuinely outside everything Tidy knows) routes to `how-to-update-my-identity.md` to propose a new domain.
+6. Either way, every batch ends with a log entry. Every wiki write is approved.
 
-The wiki is the durable part. Skills are executable memory. Claude Code and Codex are replaceable runtimes.
+The wiki is the durable part. Skills are case law; domains are constitutional amendments; the runtime is replaceable.
 
 ## What Gets Installed
 
@@ -88,26 +109,35 @@ The wiki is the durable part. Skills are executable memory. Claude Code and Code
 
 ```text
 ~/.tidy/
-├── AGENTS.md
-├── index.md
+├── AGENTS.md            the constitution the agent reads on every invocation
+├── index.md             catalog of domains and skills you've approved
+├── domains/
+│   ├── filing.md        the seed domain — organize files on disk
+│   └── …                more domains as you teach them
 ├── skills/
-│   ├── how-to-ask.md
-│   ├── how-to-log.md
-│   ├── how-to-update-the-wiki.md
-│   ├── when-nothing-fits.md
-│   └── ...
+│   ├── how-to-ask.md                ↘
+│   ├── how-to-log.md                 ↘
+│   ├── how-to-update-the-wiki.md     ↘  the five meta-skills, shipped at install
+│   ├── how-to-update-my-identity.md  ↗
+│   ├── when-nothing-fits.md          ↗
+│   ├── ebook.md                     ↘
+│   ├── invoice.md                    ↘  domain skills, written as you approve them
+│   └── …                             ↗
 └── log/
-    └── index.md
+    ├── index.md         catalog of monthly logs
+    └── 2026-05.md       this month's batches
 ```
 
 ## Update And Check
 
-Refresh repo-owned Tidy files without touching your learned skills, index, or logs:
+Refresh repo-owned Tidy files without touching your learned skills, user-grown domains, index, or logs:
 
 ```bash
 git pull
 ./install.sh --update
 ```
+
+`--update` refreshes only the constitution: `AGENTS.md`, `domains/filing.md`, the five meta-skills, the Claude Code skill, and the Codex prompt. Local edits get backed up next to the file before replacement.
 
 Check your install:
 
@@ -117,8 +147,10 @@ Check your install:
 
 ## Why
 
-Tidy came from two places: my computer was a mess, and Andrej Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) crystallized the pattern. His gist describes the wiki as a persistent, compounding artifact maintained by an LLM instead of knowledge being rediscovered from scratch every session. 
-What Tidy adds is small: the wiki holds executable filing rules instead of synthesized knowledge, and grows by codifying a pattern the first time no existing rule fits. The runtime is replaceable; the rulebook is yours.
+Tidy came from two places: my computer was a mess, and Andrej Karpathy's [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) crystallized the pattern. His gist describes the wiki as a persistent, compounding artifact maintained by an LLM instead of knowledge being rediscovered from scratch every session.
+
+What Tidy adds is small: the wiki holds executable rules instead of synthesized knowledge, organized by domain, and grows by codifying a pattern the first time no existing rule fits — both at the skill level (within a domain) and at the identity level (a whole new domain). The runtime is replaceable; the rulebook is yours.
+
 Thank you, Andrej.
 
 ## Docs
@@ -132,7 +164,7 @@ Thank you, Andrej.
 
 ## Status
 
-v0.1.0. Small, useful, and early.
+v0.2.0. Multi-domain. Pre-alpha — expect the agent's behavior to surprise you sometimes; the playbook in `~/.tidy/AGENTS.md` and the meta skills in `~/.tidy/skills/` are the honest place to push back when it does.
 
 ## Uninstall
 

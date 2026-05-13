@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Tidy — install or update the Claude Code/Codex skill plus the
-# repo-owned wiki playbook files.
+# repo-owned wiki constitution.
 #
 # Normal install is conservative: existing ~/.tidy/ files are never
 # overwritten. Update mode refreshes only repo-owned files and backs up
@@ -26,13 +26,16 @@ Update refreshes only repo-owned files:
   ~/.claude/skills/tidy/SKILL.md
   ~/.codex/prompts/tidy.md
   ~/.tidy/AGENTS.md
+  ~/.tidy/domains/filing.md
   ~/.tidy/skills/how-to-ask.md
   ~/.tidy/skills/how-to-log.md
   ~/.tidy/skills/how-to-update-the-wiki.md
+  ~/.tidy/skills/how-to-update-my-identity.md
   ~/.tidy/skills/when-nothing-fits.md
 
 Update never touches:
   ~/.tidy/index.md
+  your user-grown ~/.tidy/domains/*.md (anything besides filing.md)
   your learned ~/.tidy/skills/*.md
   ~/.tidy/log/**
 EOF
@@ -139,11 +142,14 @@ update_skill_files() {
 }
 
 install_mode() {
-    mkdir -p "$HOME/.tidy/skills" "$HOME/.tidy/log"
+    mkdir -p "$HOME/.tidy/skills" "$HOME/.tidy/domains" "$HOME/.tidy/log"
 
     echo "Wiki"
     seed wiki/AGENTS.md "$HOME/.tidy/AGENTS.md"
     seed wiki/index.md "$HOME/.tidy/index.md"
+    for src in wiki/domains/*.md; do
+        seed "$src" "$HOME/.tidy/domains/$(basename "$src")"
+    done
     for src in wiki/skills/*.md; do
         seed "$src" "$HOME/.tidy/skills/$(basename "$src")"
     done
@@ -165,13 +171,15 @@ install_mode() {
 }
 
 update_mode() {
-    mkdir -p "$HOME/.tidy/skills"
+    mkdir -p "$HOME/.tidy/skills" "$HOME/.tidy/domains"
 
-    echo "Wiki playbook"
+    echo "Wiki constitution"
     refresh wiki/AGENTS.md "$HOME/.tidy/AGENTS.md"
+    refresh wiki/domains/filing.md "$HOME/.tidy/domains/filing.md"
     refresh wiki/skills/how-to-ask.md "$HOME/.tidy/skills/how-to-ask.md"
     refresh wiki/skills/how-to-log.md "$HOME/.tidy/skills/how-to-log.md"
     refresh wiki/skills/how-to-update-the-wiki.md "$HOME/.tidy/skills/how-to-update-the-wiki.md"
+    refresh wiki/skills/how-to-update-my-identity.md "$HOME/.tidy/skills/how-to-update-my-identity.md"
     refresh wiki/skills/when-nothing-fits.md "$HOME/.tidy/skills/when-nothing-fits.md"
 
     echo
@@ -180,7 +188,7 @@ update_mode() {
 
     echo
     echo "✓ Tidy updated."
-    echo "User-owned files were not touched: ~/.tidy/index.md, learned skills, and ~/.tidy/log/**."
+    echo "User-owned files were not touched: ~/.tidy/index.md, user-grown domains, learned skills, and ~/.tidy/log/**."
 }
 
 check_path() {
@@ -216,9 +224,11 @@ doctor_mode() {
     echo "Wiki"
     check_path "$HOME/.tidy/AGENTS.md" "~/.tidy/AGENTS.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/index.md" "~/.tidy/index.md" || problems=$((problems + 1))
+    check_path "$HOME/.tidy/domains/filing.md" "~/.tidy/domains/filing.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/how-to-ask.md" "~/.tidy/skills/how-to-ask.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/how-to-log.md" "~/.tidy/skills/how-to-log.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/how-to-update-the-wiki.md" "~/.tidy/skills/how-to-update-the-wiki.md" || problems=$((problems + 1))
+    check_path "$HOME/.tidy/skills/how-to-update-my-identity.md" "~/.tidy/skills/how-to-update-my-identity.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/skills/when-nothing-fits.md" "~/.tidy/skills/when-nothing-fits.md" || problems=$((problems + 1))
     check_path "$HOME/.tidy/log/index.md" "~/.tidy/log/index.md" || problems=$((problems + 1))
 
