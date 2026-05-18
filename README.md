@@ -1,6 +1,6 @@
 # Tidy
-
-A shared memory for Claude Code and Codex. Tidy reads `~/.tidy/` on every invocation, finds the skill that matches what you asked, and follows it. You teach it skills over time — for filing files, triaging email, drafting copy, whatever you keep asking for. New skills accumulate; the wiki is yours.
+A small prototype for agent memory governance, for Claude Code and Codex
+Tidy reads `~/.tidy/` on every invocation, finds the skill that matches what you asked, and follows it. You teach it skills over time — for filing files, triaging email, drafting copy, whatever you keep asking for. New skills accumulate; the wiki is yours.
 
 Agents don't always need smarter models. Sometimes they need better memory.
 
