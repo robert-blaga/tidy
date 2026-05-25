@@ -24,6 +24,8 @@ Normal install never overwrites existing files in ~/.tidy/.
 
 Update refreshes only repo-owned files:
   ~/.claude/skills/tidy/SKILL.md
+  ~/.codex/skills/tidy/SKILL.md
+  ~/.codex/skills/tidy/agents/openai.yaml
   ~/.codex/prompts/tidy.md
   ~/.tidy/AGENTS.md
   ~/.tidy/skills/how-to-log.md
@@ -140,7 +142,7 @@ cleanup_retired_artifacts() {
 }
 
 install_skill_files() {
-    # Claude/Codex prompt files are repo-owned. Install mode may overwrite
+    # Claude/Codex integration files are repo-owned. Install mode may overwrite
     # them because they are not user wiki memory.
     if [ -d "$HOME/.claude" ] || command -v claude >/dev/null 2>&1; then
         mkdir -p "$HOME/.claude/skills/tidy"
@@ -151,11 +153,16 @@ install_skill_files() {
     fi
 
     if [ -d "$HOME/.codex" ] || command -v codex >/dev/null 2>&1; then
+        mkdir -p "$HOME/.codex/skills/tidy/agents"
+        cp skill/codex/SKILL.md "$HOME/.codex/skills/tidy/SKILL.md"
+        cp skill/codex/agents/openai.yaml "$HOME/.codex/skills/tidy/agents/openai.yaml"
         mkdir -p "$HOME/.codex/prompts"
         cp skill/codex/tidy.md "$HOME/.codex/prompts/tidy.md"
+        echo "  + ~/.codex/skills/tidy/SKILL.md"
+        echo "  + ~/.codex/skills/tidy/agents/openai.yaml"
         echo "  + ~/.codex/prompts/tidy.md"
     else
-        echo "  · skipped Codex prompt (no ~/.codex or codex on PATH)"
+        echo "  · skipped Codex integration (no ~/.codex or codex on PATH)"
     fi
 }
 
@@ -167,9 +174,11 @@ update_skill_files() {
     fi
 
     if [ -d "$HOME/.codex" ] || command -v codex >/dev/null 2>&1; then
+        refresh skill/codex/SKILL.md "$HOME/.codex/skills/tidy/SKILL.md"
+        refresh skill/codex/agents/openai.yaml "$HOME/.codex/skills/tidy/agents/openai.yaml"
         refresh skill/codex/tidy.md "$HOME/.codex/prompts/tidy.md"
     else
-        echo "  · skipped Codex prompt (no ~/.codex or codex on PATH)"
+        echo "  · skipped Codex integration (no ~/.codex or codex on PATH)"
     fi
 }
 
@@ -193,7 +202,7 @@ install_mode() {
     echo
     echo "Try it:"
     echo "  claude    →  /tidy ~/Downloads"
-    echo "  codex     →  /tidy then describe what to organize"
+    echo "  codex     →  /tidy then describe what to organize, or restart Codex and use \$tidy"
     echo
     echo "Memory lives at ~/.tidy/. Open it any time:"
     echo "  open ~/.tidy/index.md"
@@ -272,6 +281,8 @@ doctor_mode() {
     echo
     echo "Agent integrations"
     check_path "$HOME/.claude/skills/tidy/SKILL.md" "~/.claude/skills/tidy/SKILL.md" || true
+    check_path "$HOME/.codex/skills/tidy/SKILL.md" "~/.codex/skills/tidy/SKILL.md" || true
+    check_path "$HOME/.codex/skills/tidy/agents/openai.yaml" "~/.codex/skills/tidy/agents/openai.yaml" || true
     check_path "$HOME/.codex/prompts/tidy.md" "~/.codex/prompts/tidy.md" || true
 
     echo

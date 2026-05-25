@@ -1,0 +1,7 @@
+interface:
+  display_name: "Tidy"
+  short_description: "Use your local Tidy wiki"
+  default_prompt: "Use $tidy to organize my Downloads folder."
+
+policy:
+  allow_implicit_invocation: true

@@ -9,7 +9,8 @@ The novel idea is the wiki, not the runtime. The wiki is yours. The agent is the
 ## What this is, exactly
 
 - A **Claude Code skill** at `~/.claude/skills/tidy/SKILL.md`. Triggered by `/tidy` or by phrases like "organize my downloads".
-- A **Codex slash prompt** at `~/.codex/prompts/tidy.md`. Triggered by `/tidy`.
+- A **Codex skill** at `~/.codex/skills/tidy/SKILL.md`. Available to Codex CLI and the Codex app after restart, triggered by `$tidy` or matching natural language.
+- A **Codex slash prompt** at `~/.codex/prompts/tidy.md`. Triggered by `/tidy` for CLI compatibility.
 - A **seed wiki** at `~/.tidy/`:
   - `AGENTS.md` — the constitution
   - three meta-skills in `skills/` (`how-to-log`, `how-to-update-the-wiki`, `when-nothing-fits`)
@@ -44,6 +45,7 @@ git pull
 `--update` refreshes Tidy's repo-owned constitution:
 
 - Claude Code skill
+- Codex skill and UI metadata
 - Codex prompt
 - `~/.tidy/AGENTS.md`
 - the three meta-skills in `~/.tidy/skills/`
@@ -68,6 +70,12 @@ In Codex:
 
 ```text
 /tidy then tell me what to organize
+```
+
+Or, after restarting Codex so it picks up installed skills:
+
+```text
+$tidy ~/Downloads
 ```
 
 Or just describe what you want:
@@ -194,5 +202,5 @@ v0.3.2. Pre-alpha — expect the agent's behavior to surprise you sometimes; the
 ## Uninstall
 
 ```bash
-rm -rf ~/.tidy ~/.claude/skills/tidy ~/.codex/prompts/tidy.md
+rm -rf ~/.tidy ~/.claude/skills/tidy ~/.codex/skills/tidy ~/.codex/prompts/tidy.md
 ```

@@ -9,7 +9,7 @@ Claude Code and Codex also control tool permissions. Tidy tells the agent what w
 ## Supported Runtimes
 
 - **Claude Code**: installed as a skill in `~/.claude/skills/tidy/SKILL.md`.
-- **Codex**: installed as a slash prompt in `~/.codex/prompts/tidy.md`.
+- **Codex**: installed as a skill in `~/.codex/skills/tidy/SKILL.md` for Codex CLI and the Codex app, plus a slash prompt in `~/.codex/prompts/tidy.md` for `/tidy`.
 
 Both read and write the same `~/.tidy/` wiki. Their exact behavior may differ because they are different agents with different tool and approval flows, but the memory is shared.
 
